@@ -14,10 +14,3 @@ struct QuoteModel : Codable, Identifiable {
     var content = "";
     var character: CharacterModel = CharacterModel();
 }
-
-struct CharacterModel : Codable, Identifiable {
-    let id = UUID()
-//    var _id = "";
-    var firstname = "";
-    var lastname = "";
-}

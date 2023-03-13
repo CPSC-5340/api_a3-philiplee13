@@ -20,7 +20,7 @@ class OfficeQuoteView : ObservableObject {
                 let results = try JSONDecoder().decode([String: QuoteModel].self, from: data);
 //                print("results are \(results)")
                 self.quoteData = results["data"]!
-                print("quote data is \(self.quoteData)")
+//                print("quote data is \(self.quoteData)")
             } catch {
                 print("Error happened when trying to get data \(error)")
             }

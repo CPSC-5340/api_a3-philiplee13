@@ -9,8 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var quotevm = OfficeQuoteView()
+    @ObservedObject var charactervm = OfficeCharacterView()
     var body: some View {
         NavigationStack {
+            List {
+                Section() {
+                    Text("All Office Characters")
+                    ForEach(charactervm.characterData) { data in
+                        Text("Character: \(data.firstname) \(data.lastname)")
+                   .font(.system(size: 20))
+                   .padding(.horizontal)
+                    }
+                }
+                .task {
+                    await charactervm.fetchData()
+                }
+                        }
             List {
                     NavigationLink {
                         QuoteDetailView(quoteDetails: quotevm.quoteData)
