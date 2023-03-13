@@ -12,16 +12,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-//                ForEach(quotevm.quoteData) { data in
                     NavigationLink {
-//                        QuoteDetailView(quoteDetail: quotevm)
+                        QuoteDetailView(quoteDetails: quotevm.quoteData)
                     } label: {
-                        Text("See a random quote here")
+                        Text("See a random quote from the Office here")
                     }
-//                }
             }
-            .onAppear {
-                quotevm.fetchData()
+            .task {
+                await quotevm.fetchData()
             }
             .listStyle(.grouped)
             .navigationTitle("Office API Details")

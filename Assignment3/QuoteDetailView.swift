@@ -9,12 +9,15 @@ import SwiftUI
 
 struct QuoteDetailView: View {
     
-    var quoteDetail : QuoteModel
+    var quoteDetails: QuoteModel;
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 10) {
-                Text(quoteDetail.content)
+                Text("Author: \(quoteDetails.character.firstname) \(quoteDetails.character.lastname)")
+                    .font(.system(size: 20))
+                    .padding(.horizontal)
+                Text(quoteDetails.content)
                     .font(.system(size: 20))
                     .padding(.horizontal)
             }

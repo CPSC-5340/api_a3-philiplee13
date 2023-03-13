@@ -10,6 +10,14 @@ import Foundation
 
 struct QuoteModel : Codable, Identifiable {
     let id = UUID();
-    let _id: String;
-    let content: String;
+//    var _id = "";
+    var content = "";
+    var character: CharacterModel = CharacterModel();
+}
+
+struct CharacterModel : Codable, Identifiable {
+    let id = UUID()
+//    var _id = "";
+    var firstname = "";
+    var lastname = "";
 }

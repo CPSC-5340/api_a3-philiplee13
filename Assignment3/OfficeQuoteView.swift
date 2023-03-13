@@ -9,29 +9,21 @@ import Foundation
 
 class OfficeQuoteView : ObservableObject {
     
-    @Published private(set) var quoteData = [QuoteModel]()
+    @Published var quoteData = QuoteModel()
     private let url = "https://www.officeapi.dev/api/quotes/random";
     
-    
-    func fetchData() {
-        if let url = URL(string: url) {
-            URLSession
-                .shared
-                .dataTask(with: url) { (data, response, error ) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        if let data = data {
-                            do {
-                                print("data is \(data)")
-                                let quoteData = try JSONDecoder().decode([String: QuoteModel].self, from: data)["data"]
-                                print("quotedata is \(quoteData)")
-                            } catch {
-                                print(error)
-                            }
-                        }
-                    }
-                }.resume()
+    @MainActor
+    func fetchData() async {
+        if let url = URL(string: self.url) {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url);
+                let results = try JSONDecoder().decode([String: QuoteModel].self, from: data);
+//                print("results are \(results)")
+                self.quoteData = results["data"]!
+                print("quote data is \(self.quoteData)")
+            } catch {
+                print("Error happened when trying to get data \(error)")
+            }
         }
     }
 }
